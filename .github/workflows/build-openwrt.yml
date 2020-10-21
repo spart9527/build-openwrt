@@ -40,6 +40,7 @@ env:
   REPO_TOKEN: ${{ secrets.REPO_TOKEN }}
   SCKEY: ${{ secrets.SCKEY }}
   GITHUB_RELEASE: https://github.com/deku772/build-openwrt/releases
+  RECENT_LASTEST: 1  
   TZ: Asia/Shanghai
 
 jobs: 
@@ -197,6 +198,7 @@ jobs:
       with:
         name: OpenWrt_firmware_${{matrix.target}}_${{ env.date }}
         path: ${{ env.FIRMWARE }}
+        retention-days: ${{ env.RECENT_LASTEST }} 
 
     - name: 上传固件到「奶牛快传」和「wetransfer」
       if: steps.organizer.outputs.status == 'success' && env.UPLOAD_COWTRANSFER == 'true' && !cancelled()
